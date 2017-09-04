@@ -85,6 +85,7 @@ To find the lane lines, I use the sliding window method. The method could be sum
 - Find the fitting plot for the lane lines
 - Create a new image based on the original image
 - Draw the lane lines
+
 All these process is the block of code of `to_slide_window` function.
 
 **b. Filling the polynomial:**
