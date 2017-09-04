@@ -31,8 +31,8 @@ The process of finding the object pionts and image points are following:
 - Find the chessboard corners by using  `cv2.findChessboardCorners()` function
 - I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
-<img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/undistort_output.png" width="500">
-![alt text][image1]
+<img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/undistort_output.png" width="800">
+
 
 ### Pipeline (single images)
 
