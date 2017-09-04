@@ -49,7 +49,8 @@ src = np.float32([[490, 482],[810, 482],
 dst = np.float32([[0, 0], [1280, 0], 
                      [1250, 720],[40, 720]])
 ```
-- After, I use `cv2.getPerspectiveTransform()` to transform image
+- After, I use `cv2.getPerspectiveTransform()` to transform image. 
+
 Below is an example of undistorted and warped image:
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/warped.png" width="800">
 
