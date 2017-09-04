@@ -55,11 +55,25 @@ Below is an example of undistorted and warped image:
 
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/warped.png" width="800">
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Combination of color transforms to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
-![alt text][image3]
+I used a combination of color thresholds to generate a binary image.
+- First, I apply l channel threshold to the image
+- Then, I apply b channel threshold to the image
+- Last, combine both of the threshold to produce the combined binary image.
+This process is demonstrate inthe following code 
+```
+def to_combine_thresholds(img):
+    img = np.copy(img)
+    s_binary = s_select(img)
+    l_binary = l_select(img)
+    b_binary = b_select(img)
+    combined_binary = np.zeros_like(s_binary)
+    combined_binary[(l_binary == 1) | (b_binary == 1)] = 1
+    return combined_binary
+```
+Below is the result of image before and after applying thresholds:
+<img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/threshold_image.png" width="800">
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
