@@ -58,10 +58,10 @@ Below is an example of undistorted and warped image:
 #### 2. Combination of color transforms to create a thresholded binary image.  Provide an example of a binary image result.
 
 I used a combination of color thresholds to generate a binary image.
-- First, I apply l channel threshold to the image
-- Then, I apply b channel threshold to the image
+- First, I apply L channel threshold to the image
+- Then, I apply B channel threshold to the image
 - Last, combine both of the threshold to produce the combined binary image.
-This process is demonstrate inthe following code 
+This process is demonstrated in the following code 
 ```
 def to_combine_thresholds(img):
     img = np.copy(img)
@@ -75,41 +75,26 @@ def to_combine_thresholds(img):
 Below is the result of image before and after applying thresholds:
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/threshold_image.png" width="800">
 
-#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+There are two process seperate from each other. One is the process of finding the lane lines and another one is the process of filling the polynomial of the lane. 
+**a. Finding the lane lines:**
+To find the lane lines, I use the sliding window method. The method could be summarize as the following steps:
+- Produce the combined threshold binary image
+- Create histogram from binary image
+- Find peak of histogram for both on the left and the right image to find the lane lines
+- Find the fitting plot for the lane lines
+- Create a new image based on the original image
+- Draw the lane lines
+All these process is the block of code of `to_slide_window` function.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+**b. Filling the polynomial:**
+Unwarp the image and filling the polynomial is in the code block of the function `to_draw_lane`. The following is the summary step of filling the polynmial:
+- Draw the lane onto the warped blank image
+- Unwarp the drawed image to original image using inverse prespective matrix
+- Combine the original image and the unwarped image.
 
-```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-```
-
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
-
-![alt text][image4]
-
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
-
-![alt text][image5]
+Below is the result of finding lane line and filling polynomial image:
+<img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/filling_polynomial.png" width="800">
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
