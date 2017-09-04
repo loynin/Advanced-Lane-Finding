@@ -36,7 +36,21 @@ The process of finding the object pionts and image points are following:
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
+#### 1. Distortion-corrected and warped image.
+
+Distortion correction and warping image is important in order to correct image to have the real world view. 
+Below are the steps of undistortion and warping image:
+- After getting `objpoints` and `imgpoints`, I used these data to calibrate the camera.
+- Then I `cv2.undistort()` to correct distortion
+- I then set the regional of interest:
+``` 
+src = np.float32([[490, 482],[810, 482],
+                      [1250, 720],[40, 720]])
+dst = np.float32([[0, 0], [1280, 0], 
+                     [1250, 720],[40, 720]])
+```
+- After, I use `cv2.getPerspectiveTransform()` to transform image
+Below is an example of undistorted and warped image:
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
