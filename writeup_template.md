@@ -51,9 +51,7 @@ dst = np.float32([[0, 0], [1280, 0],
 ```
 - After, I use `cv2.getPerspectiveTransform()` to transform image
 Below is an example of undistorted and warped image:
-
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+<img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/warped.png" width="800">
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
