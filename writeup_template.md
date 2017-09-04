@@ -76,7 +76,8 @@ Below is the result of image before and after applying thresholds:
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/threshold_image.png" width="800">
 
 #### 3. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-There are two process seperate from each other. One is the process of finding the lane lines and another one is the process of filling the polynomial of the lane. 
+There are two process seperate from each other. One is the process of finding the lane lines and another one is the process of filling the polynomial of the lane.
+
 **a. Finding the lane lines:**
 To find the lane lines, I use the sliding window method. The method could be summarize as the following steps:
 - Produce the combined threshold binary image
