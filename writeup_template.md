@@ -1,8 +1,8 @@
 # Advanced Lane Lines Finding
 
-**Predicting the accuracy of lane line is important for self-driving car drive safely and applicable to the real world. If the self-driving car can not navigate on the assigned lane consistently and accurately, there would be no way that it could be on the real street.**
+**Predicting the accuracy of lane line is important for self-driving car to drive safely and applicable to the real world. If the self-driving car can not navigate on the assigned lane line consistently and accurately, there would be no way that it could be on the real street.**
 
-**Therefore, it is important that we need to program the self-driving car to understand and recognize the lane lines. And this project is where we will start do this job.**
+**Therefore, it is important that we need to program the self-driving car to understand and recognize the lane lines. And this project is where we will start to do this job.**
 
 ---
 
@@ -41,7 +41,7 @@ The process of finding the object pionts and image points are following:
 Distortion correction and warping image is important in order to correct image to have the real world view. 
 Below are the steps of undistortion and warping image:
 - After getting `objpoints` and `imgpoints`, I used these data to calibrate the camera.
-- Then I `cv2.undistort()` to correct distortion
+- Then I use `cv2.undistort()` to correct distortion
 - I then set the regional of interest:
 ``` 
 src = np.float32([[490, 482],[810, 482],
@@ -65,7 +65,6 @@ This process is demonstrated in the following code
 ```
 def to_combine_thresholds(img):
     img = np.copy(img)
-    s_binary = s_select(img)
     l_binary = l_select(img)
     b_binary = b_select(img)
     combined_binary = np.zeros_like(s_binary)
@@ -76,13 +75,13 @@ Below is the result of image before and after applying thresholds:
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/threshold_image.png" width="800">
 
 #### 3. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-There are two process seperate from each other. One is the process of finding the lane lines and another one is the process of filling the polynomial of the lane.
+There are two processes seperate from each other. One is the process of finding the lane lines and another one is the process of filling the polynomial of the lane.
 
 **a. Finding the lane lines:**
 To find the lane lines, I use the sliding window method. The method could be summarize as the following steps:
 - Produce the combined threshold binary image
 - Create histogram from binary image
-- Find peak of histogram for both on the left and the right image to find the lane lines
+- Find peak of histogram for both on the left and the right of image to find the lane lines
 - Find the fitting plot for the lane lines
 - Create a new image based on the original image
 - Draw the lane lines
@@ -124,9 +123,9 @@ This code block is in the `to_slide_window` function.
 
 ### Pipeline (video)
 
-It is all about it. Finally, I come to the final step is to build the pipline for processing the video. This pipline bombined all the previous processing steps in order to create the final images.
+That is all about it. Finally, I come to the final step is to build the pipeline for processing the video. This pipeline combined all the previous processing steps in order to create the final images.
 
-The pipline is run as the following processes:
+The pipeline is run as the following processes:
 
 1. Calibrate camera and undistort image
 2. Perform perspective transform
@@ -136,7 +135,7 @@ The pipline is run as the following processes:
 6. Perform reverse perspective transform
 7. Write curvature info and radius of curvature to the image
 
-Finally, pipline is used to process the input video and produce the output video with the lane line mark, curvature information, and dadius of curvature information.
+Finally, pipeline is used to process the input video and produce the output video with the lane line mark, curvature information, and dadius of curvature information.
 
 Here's a [link to my video result](https://github.com/loynin/Advanced-Lane-Finding/blob/master/result.mp4)
 
