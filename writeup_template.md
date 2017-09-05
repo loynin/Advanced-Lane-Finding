@@ -19,7 +19,6 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
@@ -65,6 +64,7 @@ This process is demonstrated in the following code
 ```
 def to_combine_thresholds(img):
     img = np.copy(img)
+    s_binary = s_select(img)
     l_binary = l_select(img)
     b_binary = b_select(img)
     combined_binary = np.zeros_like(s_binary)
