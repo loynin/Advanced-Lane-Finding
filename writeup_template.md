@@ -98,23 +98,47 @@ Unwarp the image and filling the polynomial is in the code block of the function
 Below is the result of finding lane line and filling polynomial image:
 <img src="https://github.com/loynin/Advanced-Lane-Finding/blob/master/output_images/filling_polynomial.png" width="800">
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 4. Calculate the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Below is the code use to calculate radius of curvature and the posistion of the vehicle with respect to the center:
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+```
+#Measure radius of Curvature of each land line
+    ym_per_pix = 30./720 # meters per pixel in y dimension
+    xm_per_pix = 3.7/700 # meteres per pixel in x dimension
+    left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
+    right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
+    left_curverad = ((1 + (2*left_fit_cr[0]*np.max(lefty) + left_fit_cr[1])**2)**1.5) \
+                                 /np.absolute(2*left_fit_cr[0])
+    right_curverad = ((1 + (2*right_fit_cr[0]*np.max(lefty) + right_fit_cr[1])**2)**1.5) \
+                                    /np.absolute(2*right_fit_cr[0])
+    
+    
+    # Calculate the position of the vehicle
+    center = abs(640 - ((rightx_int+leftx_int)/2))
+```
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
-
-![alt text][image6]
+This code block is in the `to_slide_window` function.
 
 ---
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+It is all about it. Finally, I come to the final step is to build the pipline for processing the video. This pipline bombined all the previous processing steps in order to create the final images.
 
-Here's a [link to my video result](./project_video.mp4)
+The pipline is run as the following processes:
+
+1. Calibrate camera and undistort image
+2. Perform perspective transform
+3. Apply thresholds to the image
+4. Draw line on the lane line
+5. Fill polynomial of the transformed image
+6. Perform reverse perspective transform
+7. Write curvature info and radius of curvature to the image
+
+Finally, pipline is used to process the input video and produce the output video with the lane line mark, curvature information, and dadius of curvature information.
+
+Here's a [link to my video result](https://github.com/loynin/Advanced-Lane-Finding/blob/master/result.mp4)
 
 ---
 
@@ -122,4 +146,6 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+As lightning condition change, there will be some problem for system to identify the lane line. As a result, choosing the right threshold value and threshold method is important for system to run accurately.
+
+There are still room for improvement such as changing the value of thresholds and changing the method of thresholds could improve the system performance and accuracy.
